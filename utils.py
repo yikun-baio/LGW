@@ -5,10 +5,11 @@
 
 import numpy as np #numpy==1.21.4
 from sklearn.manifold import MDS #scipy==1.7.2
-import cv2
+# import cv2
 import matplotlib.pyplot as plt
 import ot
-from ot.gromov import cg,gwggrad,gwloss,init_matrix
+from ot.gromov import gwggrad,gwloss,init_matrix
+# from ot.gromov import cg
 from tqdm.notebook import trange,tqdm
 from PIL import Image
 from importlib import reload
@@ -30,7 +31,8 @@ def lgw_procedure(M_ref,height_ref,posns,Ms,heights,max_iter = 1000,mode = "eucl
     st = time.time()
     for i in range(0,N):
         #GW computation
-        P = ot.gromov.gromov_wasserstein(M_ref,Ms[i],height_ref,heights[i],"square_loss",log=True,numItermax = max_iter, stopThr = 1e-20, stopThr2 = 1e-20,armijo=False)[0]
+        # P = ot.gromov.gromov_wasserstein(M_ref,Ms[i],height_ref,heights[i],"square_loss",log=True,numItermax = max_iter, stopThr = 1e-20, stopThr2 = 1e-20,armijo=False)[0]
+        P = ot.gromov.gromov_wasserstein(M_ref,Ms[i],height_ref,heights[i],"square_loss",log=True,armijo=False)[0]
         Ps.append(P)
 
         #euclidean barycentric projection
